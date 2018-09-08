@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "REST API for weather forecaset of FFXIV",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "forever start src/index.js && ava -v && forever stop src/index.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,12 @@
     "express": "^4.16.3",
     "express-boom": "^2.0.0",
     "lodash.range": "^3.2.0"
+  },
+  "devDependencies": {
+    "ava": "^1.0.0-beta.8",
+    "chai": "^4.1.2",
+    "forever": "^0.15.3",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
   }
 }
