@@ -19,7 +19,7 @@ function validateQuery(query) {
 }
 
 router.use(function(req, res, next) {
-  console.log(`Time: ${new Date().toLocaleString()}, Request Type: ${req.method}, Request URL: ${req.originalUrl}`);
+  console.log(`Time: ${new Date().toLocaleString()}, Request Type: ${req.method}, Request URL: ${req.originalUrl} Locale: ${req.locale}`);
 
   if (req.method !== "GET") {
     return res.boom.methodNotAllowed("Only the GET method is allowed");
@@ -43,7 +43,7 @@ router.get("/forecast/:zoneId", function(req, res) {
 
   const weathers = eorzeaWeather.getWeathers({
     zoneId: zoneList[req.params.zoneId],
-    locale: "ja"
+    locale: req.locale
   });
   res.header('Content-Type', 'application/json; charset=utf-8');
 
@@ -57,7 +57,7 @@ router.get("/forecast/:zoneId/past", function(req, res) {
 
   const weathers = eorzeaWeather.getPastWeathers({
     zoneId: zoneList[req.params.zoneId],
-    locale: "ja"
+    locale: req.locale
   }, validateQuery(req.query));
   res.header('Content-Type', 'application/json; charset=utf-8');
 
@@ -71,7 +71,7 @@ router.get("/forecast/:zoneId/present", function(req, res) {
 
   const weathers = eorzeaWeather.getPresentWeathers({
     zoneId: zoneList[req.params.zoneId],
-    locale: "ja"
+    locale: req.locale
   });
   res.header('Content-Type', 'application/json; charset=utf-8');
 
@@ -85,7 +85,7 @@ router.get("/forecast/:zoneId/future", function(req, res) {
 
   const weathers = eorzeaWeather.getFutureWeathers({
     zoneId: zoneList[req.params.zoneId],
-    locale: "ja"
+    locale: req.locale
   }, validateQuery(req.query));
   res.header('Content-Type', 'application/json; charset=utf-8');
 
