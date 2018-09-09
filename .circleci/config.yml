@@ -52,3 +52,12 @@ jobs:
               sudo apt install rsync -y
               rsync -av --delete --rsh="ssh -p ${SSH_PORT}" --exclude='.git' --exclude='.circleci' ./ ${USER_NAME}@${HOST_NAME}:${DOCUMENT_ROOT}
             fi
+
+      - deploy:
+          name: reboot server
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              ssh -o StrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} bash -c '
+                cd ${DOCUMENT_ROOT}
+                pm2 restart pm2.yml'
+            fi
