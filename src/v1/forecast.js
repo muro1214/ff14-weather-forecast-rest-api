@@ -86,9 +86,7 @@ router.get("/forecast/:zoneId/future", function(req, res) {
   const weathers = eorzeaWeather.getFutureWeathers({
     zoneId: zoneList[req.params.zoneId],
     locale: "ja"
-  }, {
-    day: 1
-  });
+  }, validateQuery(req.query));
   res.header('Content-Type', 'application/json; charset=utf-8');
 
   res.send(weathers);
