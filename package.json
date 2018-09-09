@@ -21,6 +21,7 @@
     "eorzea-weather": "^2.2.0",
     "express": "^4.16.3",
     "express-boom": "^2.0.0",
+    "i18n": "^0.8.3",
     "lodash.range": "^3.2.0"
   },
   "devDependencies": {
