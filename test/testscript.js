@@ -76,27 +76,27 @@ test("get : eureka-pagos/future", t => {
         });
 });
 
-// test("get : eureka-pagos/future?day=2", t => {
-//     const options = Object.assign({}, optionsBasic);
-//     options.uri = baseUri + "eureka-pagos/future?day=2";
-//
-//     return rq(options)
-//         .then(response => {
-//             response.length.should.equal(7);
-//             t.pass();
-//         });
-// });
-//
-// test("get : eureka-pagos/future?hour=2", t => {
-//     const options = Object.assign({}, optionsBasic);
-//     options.uri = baseUri + "eureka-pagos/future?hour=2";
-//
-//     return rq(options)
-//         .then(response => {
-//             response.length.should.equal(3);
-//             t.pass();
-//         });
-// });
+test("get : eureka-pagos/future?day=2", t => {
+    const options = Object.assign({}, optionsBasic);
+    options.uri = baseUri + "eureka-pagos/future?day=2";
+
+    return rq(options)
+        .then(response => {
+            response.length.should.equal(7);
+            t.pass();
+        });
+});
+
+test("get : eureka-pagos/future?hour=1", t => {
+    const options = Object.assign({}, optionsBasic);
+    options.uri = baseUri + "eureka-pagos/future?hour=1";
+
+    return rq(options)
+        .then(response => {
+            response.length.should.equal(2);
+            t.pass();
+        });
+});
 
 test("get : eureka-pagossss/future", t => {
     const options = Object.assign({}, optionsBasic);
