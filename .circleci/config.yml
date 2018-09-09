@@ -50,9 +50,9 @@ jobs:
           name: ssh-keygen
           command: ssh-keyscan -p ${SSH_PORT} ${HOST_NAME} >> ~/.ssh/known_hosts
 
-      # - deploy:
-      #     name: deploy master branch
-      #     command: |
-      #       if [ "${CIRCLE_BRANCH}" == "master" ]; then
-      #         rsync -av --delete --rsh="ssh -p ${SSH_PORT}" --exclude='.git' --exclude='.circleci' ./src ${USER_NAME}@${HOST_NAME}:/opt/ff14-rest/weather
-      #       fi
+      - deploy:
+          name: deploy master branch
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              rsync -av --delete --rsh="ssh -p ${SSH_PORT}" --exclude='.git' --exclude='.circleci' ./src ${USER_NAME}@${HOST_NAME}:/opt/ff14-rest/weather
+            fi
