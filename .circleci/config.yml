@@ -50,5 +50,5 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               sudo apt install rsync -y
-              rsync -av --delete --rsh="ssh -p ${SSH_PORT}" --exclude='.git' --exclude='.circleci' ./src ${USER_NAME}@${HOST_NAME}:/opt/ff14-rest/weather
+              rsync -av --delete --rsh="ssh -p ${SSH_PORT}" ./src ${USER_NAME}@${HOST_NAME}:${DOCUMENT_ROOT}
             fi
