@@ -57,7 +57,7 @@ jobs:
           name: reboot server
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              ssh -o StrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} bash -c '
+              ssh -o StrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} -p ${SSH_PORT} bash -c '
                 cd ${DOCUMENT_ROOT}
                 pm2 restart pm2.yml'
             fi
