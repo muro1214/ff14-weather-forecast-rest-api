@@ -9,6 +9,10 @@ jobs:
       # specify the version you desire here
       - image: circleci/node:10.8.0-jessie
 
+    branches:
+      ignore:
+        - /feature\/.*/
+
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
