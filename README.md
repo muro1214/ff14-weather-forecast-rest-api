@@ -26,5 +26,9 @@ Work in Progress
 
 [MIT](LICENSE)
 
+The getWeathers() function in [src/v1/weathers.js](src/v1/weathers.js) and the getStartTime() function in [src/v1/et.js](src/v1/et.js)  are:
+
+[MIT](https://github.com/flowercartelet/eorzea-weather-app/blob/master/LICENSE)
+
 > 記載されている会社名・製品名・システム名などは、各社の商標、または登録商標です。  
 > Copyright (C) 2010 - 2018 SQUARE ENIX CO., LTD. All Rights Reserved.
