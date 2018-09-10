@@ -9,15 +9,14 @@ jobs:
       # specify the version you desire here
       - image: circleci/node:10.8.0-jessie
 
+    branches:
+      ignore:
+        - /feature\/.*/
+
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/mongo:3.4.4
-
-    branches:
-      only:
-        - master
-        - develop
 
     working_directory: ~/ff14-weather-forecast-rest-api/
 
@@ -43,17 +42,24 @@ jobs:
 
       # deploy
       - add_ssh_keys:
-        fingerprints:
-          - "6a:c2:a8:84:60:08:9d:3c:e4:40:42:69:8a:b4:da:ac"
+          fingerprints:
+            - ${FINGERPRINTS}
 
       - run:
-        name: ssh-keygen
-        command: |
-          ssh-keyscan -p ${SSH_PORT} ${HOST_NAME} >> ~/.ssh/known_hosts
+          name: ssh-keygen
+          command: ssh-keyscan -p ${SSH_PORT} ${HOST_NAME} >> ~/.ssh/known_hosts
 
       - deploy:
-        name: deploy master branch
-        command: |
-          if [ "${CIRCLE_BRANCH}" == "master" ]; then
-            rsync -av --delete --rsh="ssh -p ${SSH_PORT}" --exclude='.git' --exclude='.circleci' ./src ${USER_NAME}@${HOST_NAME}:/opt/ff14-rest/weather
-          fi
+          name: deploy master branch to server
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              sudo apt install rsync -y
+              rsync -av --delete --rsh="ssh -p ${SSH_PORT}" --exclude='.git' --exclude='.circleci' ./ ${USER_NAME}@${HOST_NAME}:${DOCUMENT_ROOT}
+            fi
+
+      - deploy:
+          name: reboot server
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              ssh -o StrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} -p ${SSH_PORT} "pm2 restart ${DOCUMENT_ROOT}/pm2.yml"
+            fi
